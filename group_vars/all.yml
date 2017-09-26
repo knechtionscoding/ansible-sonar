@@ -1,3 +1,6 @@
 ---
 
+psql_sonar_db: sonar
+psql_sonar_un: sonar
 psql_sonar_pw: testing
+your_domain: example.test

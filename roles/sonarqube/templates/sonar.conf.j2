@@ -1,0 +1,9 @@
+<VirtualHost *:80>  
+    ServerName sonar.{{your_domain}}
+    ServerAdmin me@{{your_domain}}
+    ProxyPreserveHost On
+    ProxyPass / http://localhost:9000/
+    ProxyPassReverse / http://localhost:9000/
+    TransferLog /var/log/httpd/sonar.{{your_domain}}_access.log
+    ErrorLog /var/log/httpd/sonar.{{your_domain}}_error.log
+</VirtualHost>

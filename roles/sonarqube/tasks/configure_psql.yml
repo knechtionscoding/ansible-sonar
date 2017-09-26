@@ -2,14 +2,14 @@
 
 - name: Create Database for SonarQube
   postgresql_db:
-    name: sonar
+    name: '{{psql_sonar_db}}'
     encoding: UTF-8
   become: true
 
 - name: Create Sonar User
   postgresql_user:
-    db: sonar
-    name: sonar
-    password: {{ psql_sonar_pw }}
+    db: '{{psql_sonar_db}}'
+    name: '{{ psql_sonar_un }}'
+    password: '{{ psql_sonar_pw }}'
     priv: ALL
   become: true

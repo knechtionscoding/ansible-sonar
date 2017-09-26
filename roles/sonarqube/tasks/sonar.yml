@@ -3,5 +3,22 @@
 - name: Download and Unzip the SonarQube Source code
   unarchive:
     src: https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-6.4.zip
-    dest: /opt/sonarcube
+    dest: /etc/sonarcube
     remote_src: yes
+  become: true
+  
+- name: Template the correct properties file
+  template:
+    src: sonar.properties.j2
+    dest: /etc/sonarqube/conf/sonar.properties
+    owner: root
+    group: wheel
+    mode: 0644
+  become: true
+
+- name: Start and Enable Sonar Service
+  service:
+    name: sonar
+    state: started
+    enabled: yes
+  become: true

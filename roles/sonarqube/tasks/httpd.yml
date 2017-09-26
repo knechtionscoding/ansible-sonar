@@ -1,0 +1,29 @@
+---
+
+- name: Install httpd #For reverse Proxy
+  yum:
+    name: '{{ item }}'
+    state: latest
+  become: true
+  with_items:
+    - httpd
+
+- name: Configure Reverse Proxy
+  template:
+    src: sonar.conf.j2
+    dest: /etc/httpd/conf.d/sonar.{{your_domain}}.conf
+    owner: root
+    group: wheel
+    mode: 0644
+  become: true
+
+- name: Start and Enable httpd Service
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  become: true
+
+- name: Configure Selinux Rule for HTTP
+  command: setsebool -P httpd_can_network_connect
+  become: true
