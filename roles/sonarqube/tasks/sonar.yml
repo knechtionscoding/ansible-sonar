@@ -1,0 +1,7 @@
+---
+
+- name: Download and Unzip the SonarQube Source code
+  unarchive:
+    src: https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-6.4.zip
+    dest: /opt/sonarcube
+    remote_src: yes

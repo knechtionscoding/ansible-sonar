@@ -1,0 +1,34 @@
+---
+- name: Install PostgreSQL RPM
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+    state: present
+
+- name: Install PostgreSQL
+  yum:
+    name: {{ item }}
+    state: latest
+  with_items:
+    - postgresql96-server
+    - postgresql96-contrib
+  become: true
+
+- name: Intialize PostgreSQL DB
+  command: /usr/pgsql-9.6/bin/postgresql96-setup initdb
+  become: true
+
+- name: Copies correct PostgreSQL config file over
+  copy:
+    src: pg_hba.conf
+    dest: /var/lib/pgsql/9.6/data/pg_hba.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+- name: Enable and Start PostgreSQL
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+  become: true
