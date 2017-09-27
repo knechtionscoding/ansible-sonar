@@ -25,5 +25,5 @@
   become: true
 
 - name: Configure Selinux Rule for HTTP
-  command: setsebool -P httpd_can_network_connect
+  shell: 'setsebool -P httpd_can_network_connect'
   become: true

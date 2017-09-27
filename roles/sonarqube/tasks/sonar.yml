@@ -1,12 +1,20 @@
 ---
 
-- name: Download and Unzip the SonarQube Source code
-  unarchive:
-    src: https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-6.4.zip
-    dest: /etc/sonarcube
-    remote_src: yes
-  become: true
-  
+- name: Create SonarQube Directory
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: 777
+  with_items:
+    - /etc/sonarqube
+
+- name: Copy from Temp Files to correct location
+  copy:
+    src: sonarqube-6.5/
+    dest: /etc/sonarqube/
+    directory_mode: yes
+    force: no
+
 - name: Template the correct properties file
   template:
     src: sonar.properties.j2
@@ -15,6 +23,13 @@
     group: wheel
     mode: 0644
   become: true
+
+- name: copy service
+  copy:
+    src: sonar.service
+    dest: /etc/systemd/system/sonar.service
+  become: true
+
 
 - name: Start and Enable Sonar Service
   service:

@@ -6,16 +6,18 @@
 
 - name: Install PostgreSQL
   yum:
-    name: {{ item }}
+    name: '{{ item }}'
     state: latest
   with_items:
     - postgresql96-server
     - postgresql96-contrib
   become: true
+  register: installed_psql
 
 - name: Intialize PostgreSQL DB
   command: /usr/pgsql-9.6/bin/postgresql96-setup initdb
   become: true
+  when: installed_psql.changed
 
 - name: Copies correct PostgreSQL config file over
   copy:
@@ -28,7 +30,7 @@
 
 - name: Enable and Start PostgreSQL
   service:
-    name: postgresql
+    name: postgresql-9.6
     state: started
     enabled: yes
   become: true
