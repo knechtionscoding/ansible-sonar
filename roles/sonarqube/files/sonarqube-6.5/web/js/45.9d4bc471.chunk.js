@@ -1,0 +1,2 @@
+webpackJsonp([45],{1678:function(e,a,t){"use strict";function n(){return l.a.createElement("div",{className:"search-navigator-workspace"},l.a.createElement("div",{className:"search-navigator-intro markdown"},l.a.createElement("p",null,t.i(i.translate)("quality_gates.intro.1")),l.a.createElement("p",null,t.i(i.translate)("quality_gates.intro.2"))))}Object.defineProperty(a,"__esModule",{value:!0}),a.default=n;var r=t(0),l=t.n(r),i=t(2)}});
+//# sourceMappingURL=45.9d4bc471.chunk.js.map
